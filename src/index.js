@@ -1,40 +1,46 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
 
-class Hello extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            number: 1
-        };
-    }
+class Board extends React.Component{
 
-    handleNumber(){
-        this.setState({
-            number: this.state.number + 1
-        });
-    };
-    
     render(){
         return(
             <div>
-                <h1>{this.state.number}</h1>
-                <button onClick={this.handleNumber.bind(this)}>Click Me</button>
+                <table>
+                    <tr>
+                        <td><button>-</button></td>
+                        <td><button>-</button></td>
+                        <td><button>-</button></td>
+                    </tr>
+                    <tr>
+                        <td><button>-</button></td>
+                        <td><button>-</button></td>
+                        <td><button>-</button></td>
+                    </tr>
+                    <tr>
+                        <td><button>-</button></td>
+                        <td><button>-</button></td>
+                        <td><button>-</button></td>
+                    </tr>
+                </table>
             </div>
         );
     }
+
 }
 
-class Main extends React.Component{
+
+class Game extends React.Component{
     render(){
         return(
-            <Hello />
+            <Board />
         );
     }
 }
 
+//========== Main Call ============
 ReactDOM.render(
-    <Main />,
-    document.getElementById("root")
+    <Game />,
+    document.getElementById('root')
 );
