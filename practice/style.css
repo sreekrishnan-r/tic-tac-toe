@@ -1,6 +1,7 @@
 *{
 	margin: 0;
 	padding: 0;
+    font-family: "Permanent Marker", cursive;
 }
 
 h1{
@@ -8,7 +9,7 @@ h1{
 	margin: 50px;
 }
 
-.game-container{
+.container{
 	display: flex;
 	justify-content: center;
 	align-content: center;
@@ -29,6 +30,27 @@ h1{
 	align-items: center;
 	background-color: white;
 	cursor: pointer;
-	font-family: "Permanent Marker", cursive;
 	font-size: 50px;
+}
+
+.game-status{
+    text-align: center;
+    padding: 20px;
+}
+
+.button-container{
+	display: flex;
+    justify-content: center;
+}
+
+.restart-button{
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: white
+}
+
+.restart-button:active{
+    background-color: grey;
+    color: white;
 }
