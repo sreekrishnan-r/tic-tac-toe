@@ -11,31 +11,36 @@ let winningPosition = [
     [2, 5, 8], 
 ];
 
-
-function handleCellClicked(cell, cellIndex){
-    
-    if (gameState[cellIndex] != ""){
-        return
-    }else{
-        gameState[cellIndex] = currentPlayer;
-        cell.innerHTML = currentPlayer;
-        currentPlayer = currentPlayer === "X" ? "O" : "X";
-    }
-    
-}
-
 function handleResult(){
-    
-    
-    
+    for (let i=0 ; i<=7; i++){
+		const winningPositionData = winningPosition[i]
+		let a = gameState[winningPositionData[0]];
+		let b = gameState[winningPositionData[1]];
+		let c = gameState[winningPositionData[2]];
+		
+		if (a === '' || b === '' || c === ''){
+			continue;
+		}
+		
+		if (a === b && b === c){
+			console.log("Winner : " + currentPlayer);
+		}
+	}
 }
-
 
 document.addEventListener('click',function(item){
     if (item.target.className === "cell"){
         const clickedCell = item.target;
         const clickedCellIndex = parseInt(clickedCell.getAttribute('data-cell-index'));
-        handleCellClicked(clickedCell, clickedCellIndex);
+
+		if (gameState[clickedCellIndex] != ""){
+			return
+		}else{
+			gameState[clickedCellIndex] = currentPlayer;
+			clickedCell.innerHTML = currentPlayer;
+			currentPlayer = currentPlayer === "X" ? "O" : "X";
+		}
+		
         handleResult();
     }
     
