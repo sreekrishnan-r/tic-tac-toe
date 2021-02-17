@@ -1,5 +1,6 @@
 let currentPlayer = "X";
 let gameState = ["", "", "", "", "", "", "", "", ""];
+let gameOver = false;
 let winningPosition = [
     [0, 1, 2],
     [3, 4, 5],
@@ -10,6 +11,15 @@ let winningPosition = [
     [1, 4, 7],
     [2, 5, 8], 
 ];
+
+
+function handlePlayerChange(){
+    
+    if (!gameOver){
+        currentPlayer = currentPlayer === "X" ? "O" : "X";
+        document.querySelector(".game-status").innerHTML = "It's " + currentPlayer + " turn";
+    }
+}
 
 function handleResult(){
     for (let i=0 ; i<=7; i++){
@@ -23,31 +33,44 @@ function handleResult(){
 		}
 		
 		if (a === b && b === c){
-			console.log("Winner : " + currentPlayer);
+            document.querySelector(".game-status").innerHTML = "Winner : " + currentPlayer;
+            gameOver = true;
 		}
 	}
+    
+    if (!gameState.includes("")){
+        gameOver = true
+        document.querySelector(".game-status").innerHTML = "Game is Tie";
+    }
 }
 
 document.addEventListener('click',function(item){
     if (item.target.className === "cell"){
-        const clickedCell = item.target;
-        const clickedCellIndex = parseInt(clickedCell.getAttribute('data-cell-index'));
+        if (!gameOver){
+            const clickedCell = item.target;
+            const clickedCellIndex = parseInt(clickedCell.getAttribute('data-cell-index'));
 
-		if (gameState[clickedCellIndex] != ""){
-			return
-		}else{
-			gameState[clickedCellIndex] = currentPlayer;
-			clickedCell.innerHTML = currentPlayer;
-			currentPlayer = currentPlayer === "X" ? "O" : "X";
-		}
-		
-        handleResult();
+            if (gameState[clickedCellIndex] != ""){
+                return
+            }else{
+                gameState[clickedCellIndex] = currentPlayer;
+                clickedCell.innerHTML = currentPlayer;
+                handleResult();
+                handlePlayerChange();
+            }
+        }
     }
     
     if (item.target.className === "restart-button"){
         document.querySelectorAll(".cell").forEach(item => {
-           item.innerHTML = ""; 
+            item.innerHTML = ""; 
+            gameState = ["", "", "", "", "", "", "", "", ""];
+            currentPlayer = "X";
+            gameOver = false;
+            document.querySelector(".game-status").innerHTML = "";
+            document.querySelector(".game-status").innerHTML = "It's " + currentPlayer + " turn";
         });
     }
 });
 
+document.querySelector(".game-status").innerHTML = "It's " + currentPlayer + " turn";
